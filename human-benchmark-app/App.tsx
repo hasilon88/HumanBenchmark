@@ -1,20 +1,22 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import React from "react";
+import Login from "./pages/Login";
+import SessionManagement from "./pages/SessionManagement";
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import JoinLobby from "./pages/JoinLobby";
+import ExistingLobby from "./pages/ExistingLobby";
+
+const Stack = createNativeStackNavigator();
 
 export default function App() {
   return (
-    <View style={styles.container}>
-      <Text>🖕🖕🖕</Text>
-      <StatusBar style="auto" />
-    </View>
+    <NavigationContainer>
+      <Stack.Navigator>
+      <Stack.Screen name="ExistingLobby" component={ExistingLobby} />
+        <Stack.Screen name="Login" component={Login} />
+        <Stack.Screen name="SessionManagement" component={SessionManagement} />
+        <Stack.Screen name="JoinLobby" component={JoinLobby} />
+      </Stack.Navigator>
+    </NavigationContainer>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
