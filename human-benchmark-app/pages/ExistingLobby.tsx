@@ -48,7 +48,6 @@ const ExistingLobby = ({ navigation, route }: any) => {
   }, []);
 
   const handleSubmit = () => {
-    // Handle join lobby logic here
     console.log("Joining lobby with code:");
   };
 
