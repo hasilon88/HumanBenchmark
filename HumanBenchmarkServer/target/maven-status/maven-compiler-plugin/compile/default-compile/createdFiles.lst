@@ -1,0 +1,5 @@
+hb/humanbenchmarkserver/model/repositories/GameRepository.class
+hb/humanbenchmarkserver/model/entities/Session$SessionBuilder.class
+hb/humanbenchmarkserver/model/entities/Device$DeviceBuilder.class
+hb/humanbenchmarkserver/model/entities/Game$GameBuilder.class
+hb/humanbenchmarkserver/model/repositories/SessionRepository.class
