@@ -2,15 +2,17 @@ import React, { useState } from "react";
 import { StyleSheet, Text, View, TextInput, TouchableOpacity } from "react-native";
 
 const JoinLobby = ({ navigation, route }: any) => {
-  const { username } = route.params; // Accessing username from route params
-  const [code, setCode] = useState(""); // Using correct state variable name
+  const { username } = route.params;
+  const [code, setCode] = useState(""); 
 
   const handleCodeChange = (text: string) => {
-    setCode(text); // Updating code state
+    setCode(text.trim()); 
   };
 
-  const handleSubmit = () => {
-    console.log(code);
+  const handleJoinSession = (sess_code: string) => {
+    let isHost = false;
+    let sessionCode = sess_code;
+    navigation.navigate("ExistingLobby", { username, isHost, sessionCode });
   };
 
   return (
@@ -23,7 +25,7 @@ const JoinLobby = ({ navigation, route }: any) => {
         placeholder="Enter your lobby code"
         keyboardAppearance="default"
       />
-      <TouchableOpacity style={styles.button} onPress={handleSubmit}>
+      <TouchableOpacity style={styles.button} onPress={() => handleJoinSession(code)}>
         <Text style={styles.buttonText}>Join</Text>
       </TouchableOpacity>
     </View>
