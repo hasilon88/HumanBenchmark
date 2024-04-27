@@ -13,9 +13,9 @@ export default function App() {
     <NavigationContainer>
       <Stack.Navigator>
       <Stack.Screen name="Login" component={Login} />
-      <Stack.Screen name="ExistingLobby" component={ExistingLobby} />
         <Stack.Screen name="SessionManagement" component={SessionManagement} />
         <Stack.Screen name="JoinLobby" component={JoinLobby} />
+        <Stack.Screen name="ExistingLobby" component={ExistingLobby} />
       </Stack.Navigator>
     </NavigationContainer>
   );

@@ -13,6 +13,7 @@ import lombok.Data;
 @Builder
 @Data
 public class JoinSessionDTO {
+    Boolean joined;
     String sessionCode;
     String deviceName;
 }

@@ -1,26 +1,57 @@
 import React, { useState } from "react";
-import { StyleSheet, Text, View, TextInput, TouchableOpacity } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  View,
+  TextInput,
+  TouchableOpacity,
+} from "react-native";
+import * as API from "../api";
 
 const Login = ({ navigation }: any) => {
   const [username, setUsername] = useState<string>("");
-
+  const deviceClient = new API.DeviceControllerApi();
   const handleUsernameChange = (text: string) => {
-    setUsername(text);
+    setUsername(text.trim());
   };
 
   const handleSubmit = () => {
-    if (username.trim() == "") {
-      setUsername("raph")
-    } else {
-      console.log("Please enter a valid username.");
-    }
+    const register = async () => {
+      try {
+        const res = await deviceClient.registerDevice(username);
 
-    navigation.navigate("SessionManagement", { username });
+        if (res.status === 422) {
+          alert("Name already taken");
+          console.log("Name already taken");
+          setUsername("");
+          navigation.navigate("Login", {});
+          return;
+        }
+
+        if (res.status !== 200) {
+          alert("Error saving device. Please try again later.");
+          setUsername("");
+          navigation.navigate("Login", {});
+          return;
+        }
+
+        localStorage.setItem("userId", res.data.id?.toString() ?? "-1");
+        setUsername(res.data.userName ?? "");
+        navigation.navigate("SessionManagement", { username });
+      } catch (error) {
+        console.error("Error:", error);
+        setUsername("");
+        alert("Error occurred. Please try again later.");
+        navigation.navigate("Login", {});
+      }
+    };
+
+    register();
   };
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Welcome To Human Benchmark !</Text>
+      <Text style={styles.title}>Welcome To Human Benchmark ! 🧩</Text>
       <TextInput
         style={styles.input}
         onChangeText={handleUsernameChange}
