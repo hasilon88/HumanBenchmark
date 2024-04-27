@@ -13,6 +13,7 @@
   "dependencies": {
     "@expo/metro-runtime": "~3.1.3",
     "@react-navigation/native": "^6.1.17",
+    "@stomp/stompjs": "^7.0.0",
     "@types/axios": "^0.14.0",
     "axios": "^1.6.8",
     "expo": "~50.0.14",
@@ -26,12 +27,14 @@
     "react-native-table-component": "^1.2.2",
     "react-native-web": "~0.19.6",
     "rn-tailwind": "^1.0.16",
-    "tailwind-rn": "^4.2.0",
-    "ws": "^8.16.0"
+    "sockjs": "^0.3.24",
+    "stompjs": "^2.3.3",
+    "tailwind-rn": "^4.2.0"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",
     "@types/react": "~18.2.45",
+    "@types/sockjs-client": "^1.5.4",
     "@types/ws": "^8.5.10",
     "concurrently": "^8.2.2",
     "postcss": "^8.4.38",

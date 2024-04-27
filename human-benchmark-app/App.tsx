@@ -1,8 +1,8 @@
 import React from "react";
 import Login from "./pages/Login";
 import SessionManagement from "./pages/SessionManagement";
-import { NavigationContainer } from '@react-navigation/native';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { NavigationContainer } from "@react-navigation/native";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import JoinLobby from "./pages/JoinLobby";
 import ExistingLobby from "./pages/ExistingLobby";
 
@@ -12,10 +12,14 @@ export default function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator>
-      <Stack.Screen name="Login" component={Login} />
+        <Stack.Screen name="Login" component={Login} />
         <Stack.Screen name="SessionManagement" component={SessionManagement} />
         <Stack.Screen name="JoinLobby" component={JoinLobby} />
-        <Stack.Screen name="ExistingLobby" component={ExistingLobby} />
+
+        {/* I do this so I can override going back button */}
+        <Stack.Screen name="ExistingLobby" options={{headerLeft: (props) => {
+          return <></>;
+        }}} component={ExistingLobby} />
       </Stack.Navigator>
     </NavigationContainer>
   );

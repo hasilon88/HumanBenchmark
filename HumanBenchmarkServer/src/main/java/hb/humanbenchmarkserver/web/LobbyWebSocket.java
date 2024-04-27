@@ -32,6 +32,7 @@ public class LobbyWebSocket {
     public UserLog joinSession(JoinSessionDTO dto) {
 
         try {
+            log.info("WEBSOCKET");
             Lobby lobby = sessionService.getSessionByCodeOrDefault(dto.getSessionCode());
             Device device = deviceService.getDeviceOrDefault(dto.getDeviceName());
             if (lobby == null || device == null || lobby.getIsStarted()) {
@@ -39,6 +40,7 @@ public class LobbyWebSocket {
             }
 
             if (dto.getJoined()) {
+                log.info("Joining");
                 device.setScore(0);
                 lobby.getPlayers().add(device);
                 sessionService.save(lobby);
@@ -50,6 +52,8 @@ public class LobbyWebSocket {
                         .deviceName(device.getUserName())
                         .build();
             } else {
+
+                log.info("Leaving");
 
                 // Logic for if a user left.
                 lobby.getPlayers().remove(device);

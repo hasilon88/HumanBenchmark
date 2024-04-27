@@ -6,7 +6,7 @@ import {
   TextInput,
   TouchableOpacity,
 } from "react-native";
-import * as API from "../api";
+import * as API from "../api"
 
 const Login = ({ navigation }: any) => {
   const [username, setUsername] = useState<string>("");
@@ -17,6 +17,7 @@ const Login = ({ navigation }: any) => {
 
   const handleSubmit = () => {
     const register = async () => {
+
       try {
         const res = await deviceClient.registerDevice(username);
 
@@ -35,7 +36,6 @@ const Login = ({ navigation }: any) => {
           return;
         }
 
-        localStorage.setItem("userId", res.data.id?.toString() ?? "-1");
         setUsername(res.data.userName ?? "");
         navigation.navigate("SessionManagement", { username });
       } catch (error) {

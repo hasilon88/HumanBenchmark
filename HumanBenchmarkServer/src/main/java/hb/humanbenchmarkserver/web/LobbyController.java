@@ -94,6 +94,7 @@ public class LobbyController {
         }
 
         try {
+
             Lobby lobby = Lobby
                     .builder()
                     .isStarted(false)

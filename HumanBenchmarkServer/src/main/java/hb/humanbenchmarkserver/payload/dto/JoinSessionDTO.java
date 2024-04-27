@@ -1,5 +1,6 @@
 package hb.humanbenchmarkserver.payload.dto;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Builder;
 import lombok.Data;
 
@@ -12,8 +13,12 @@ import lombok.Data;
  */
 @Builder
 @Data
+@Schema(description = "Object for joining or leaving a session.")
 public class JoinSessionDTO {
+    @Schema(description = "Whether the device is leaving or not.", example = "true")
     Boolean joined;
+    @Schema(description = "The target session code.")
     String sessionCode;
+    @Schema(description = "The target device that is interacting with the session.")
     String deviceName;
 }
