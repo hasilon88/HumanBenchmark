@@ -8,6 +8,7 @@ import lombok.RequiredArgsConstructor;
 
 import java.io.Serializable;
 import java.util.Collection;
+import java.util.Set;
 
 /**
  * @author Raphael Paquin
@@ -21,12 +22,14 @@ import java.util.Collection;
 @AllArgsConstructor
 @RequiredArgsConstructor
 @Builder
-public class Session implements Serializable {
+public class Lobby implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @Column(unique = true)
     private String sessionCode;
-    @OneToMany
-    private Collection<Device> players;
+    @OneToMany(fetch = FetchType.EAGER)
+    private Set<Device> players;
     private Boolean gameCompleted;
+    private Boolean isStarted;
 }

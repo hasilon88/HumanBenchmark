@@ -3,6 +3,9 @@
 # dependencies
 node_modules/
 
+# OPEN API CODEGEN
+api/
+
 # Expo
 .expo/
 dist/
