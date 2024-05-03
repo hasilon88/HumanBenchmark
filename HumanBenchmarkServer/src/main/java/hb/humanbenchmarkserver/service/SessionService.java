@@ -78,4 +78,9 @@ public class SessionService {
     public Lobby save(Lobby lobby) {
         return sessionRepository.save(lobby);
     }
+
+    public void deleteSession(Lobby lobby) {
+        Optional<Lobby> lobbyOptional = sessionRepository.getSessionBySessionCode(lobby.getSessionCode());
+        lobbyOptional.ifPresent(sessionRepository::delete);
+    }
 }

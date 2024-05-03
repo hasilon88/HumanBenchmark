@@ -26,9 +26,10 @@
     "react-native-screens": "3.29.0",
     "react-native-table-component": "^1.2.2",
     "react-native-web": "~0.19.6",
+    "react-stomp": "^5.1.0",
     "rn-tailwind": "^1.0.16",
     "sockjs": "^0.3.24",
-    "stompjs": "^2.3.3",
+    "sockjs-client": "^1.6.1",
     "tailwind-rn": "^4.2.0"
   },
   "devDependencies": {

@@ -2,8 +2,7 @@ package hb.humanbenchmarkserver.payload.viewmodel;
 
 
 
-import lombok.Builder;
-import lombok.Data;
+import lombok.*;
 
 /**
  * @author Raphael Paquin
@@ -14,10 +13,14 @@ import lombok.Data;
  */
 @Data
 @Builder
+@AllArgsConstructor
+@NoArgsConstructor
+@ToString
 public class UserLog {
 
     public String deviceName;
     public int score;
     // If false user left.
     public Boolean joined;
+    public String sessionCode;
 }

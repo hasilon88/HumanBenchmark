@@ -8,9 +8,11 @@ import {
   ScrollView,
   BackHandler,
 } from "react-native";
-import * as API from "../api";
+import * as API from "../api/";
 import { BASE_PATH } from "../api/base";
-import { Stomp } from "@stomp/stompjs";
+import { CompatClient, Stomp } from "@stomp/stompjs";
+import SockJS from "sockjs-client";
+import { Device } from "../api/";
 
 export type JoinedDTO = {
   joined: boolean;
@@ -18,45 +20,63 @@ export type JoinedDTO = {
   sessionCode: string;
 };
 
-const ExistingLobby = ({ navigation, route }: any) => {
-  const { username, isHost, sessionCode } = route.params;
-  const [players, setPlayers] = useState<API.Device[]>([]);
-  const [lobbyCode, setLobbyCode] = useState<string>("");
+export type Message = {
+  deviceName: string;
+  score: number;
+  joined: boolean;
+  sessionCode: string;
+};
 
+const ExistingLobby = ({ navigation, route }: any) => {
   const sessionClient = new API.LobbyControllerApi();
   const deviceClient = new API.DeviceControllerApi();
 
+  const { username, isHost, sessionCode } = route.params;
+  const [players, setPlayers] = useState<API.Device[]>([]);
+  const [lobbyCode, setLobbyCode] = useState<string>("");
+  const [justJoined, setJustJoined] = useState(false);
+  const [stompClient, setStompClient] = useState<CompatClient>();
+
   useEffect(() => {
-    const ws = new WebSocket(`ws://${BASE_PATH.slice(7)}/lobby`);
+    const initWebSocket = () => {
+      const socket = new SockJS(`${BASE_PATH}/ws`);
+      const client = Stomp.over(socket);
+      client.connect(
+        {},
+        () => {
+          console.log("Connected to WebSocket");
+          setJustJoined(true);
 
-    const stompClient = Stomp.over(ws);
-    stompClient.connect({}, () => {
-      stompClient.subscribe("/topic/players", (message) => {
-        console.log("received Message {}", JSON.parse(message.body));
-      });
+          if (!isHost) {
+            client.subscribe(`/topic/players/${sessionCode}`, (message) => {
+              const receivedMessage = JSON.parse(message.body);
+              console.log("Received message:", receivedMessage);
 
-      let dto = { joined: true, sessionCode: lobbyCode, deviceName: username };
-      stompClient.send("/app/players", {}, JSON.stringify(dto));
-    });
+              console.log(players);
+              messageCallback(receivedMessage);
+            });
+          }
+        },
+        (error: any) => {
+          console.error("WebSocket connection error:", error);
+        }
+      );
 
-    return () => {
-      stompClient.disconnect();
+      setStompClient(client);
+
+      return () => {
+        client.disconnect();
+        console.log("Disconnected from WebSocket");
+      };
     };
-  }, []);
+
+    initWebSocket();
+  }, [sessionCode]);
 
   useEffect(() => {
     const initLobby = async () => {
       // Creating session (host)
       if (isHost) {
-        setPlayers([
-          {
-            id: 0,
-            userName: username.trim() + " 🎖️",
-            donePlaying: false,
-            score: 0,
-          },
-        ]);
-
         await sessionClient.createLobby(username.trim()).then((res) => {
           if (res.status !== 200) {
             alert("Something went wrong. \nTry again later.");
@@ -81,23 +101,65 @@ const ExistingLobby = ({ navigation, route }: any) => {
             return;
           }
 
-          setPlayers([
-            { donePlaying: false, score: 0, userName: username },
-            ...res.data,
-          ]);
+          console.log(res.data);
+          console.log(`res.data`);
+
+          setPlayers([...players, ...res.data]);
+
+          console.log(players);
+
           setLobbyCode(sessionCode);
         });
       }
     };
 
     initLobby();
+    console.log("session useeffect");
+
+    return;
   }, [username]);
+
+  useEffect(() => {
+    if (justJoined && lobbyCode !== "") {
+      if (isHost) {
+        stompClient?.subscribe(`/topic/players/${lobbyCode}`, (message) => {
+          const receivedMessage = JSON.parse(message.body);
+          console.log("Received message:", receivedMessage);
+          console.log(players);
+          messageCallback(receivedMessage);
+        });
+      }
+      let dto: JoinedDTO = {
+        deviceName: username,
+        joined: true,
+        sessionCode: lobbyCode,
+      };
+      sendMessage(dto);
+      setJustJoined(false);
+    }
+  }, [justJoined, lobbyCode]);
+
+  const messageCallback = (message: Message) => {
+    setPlayers((prevPlayers) => {
+      if (message.joined) {
+        return [
+          ...prevPlayers,
+          { donePlaying: false, score: 0, userName: message.deviceName },
+        ];
+      } else {
+        return prevPlayers.filter(
+          (device) => device.userName !== message.deviceName
+        );
+      }
+    });
+  };
 
   useFocusEffect(
     useCallback(() => {
       const onBackPress = () => {
         console.log("GOING BACK");
-        return true; // Return true to prevent default back behavior (closing the app)
+        handleLeave();
+        return true;
       };
 
       // Add event listener for hardware back button press
@@ -111,19 +173,28 @@ const ExistingLobby = ({ navigation, route }: any) => {
     }, [])
   );
 
+  const sendMessage = (dto: JoinedDTO) => {
+    stompClient?.send(
+      `/app/lobby/${lobbyCode}`,
+      { sessionCode: lobbyCode },
+      JSON.stringify(dto)
+    );
+  };
+
   const handleLeave = () => {
     navigation.navigate("SessionManagement", { username });
-    // send close log
 
     let dto: JoinedDTO = {
       joined: false,
       sessionCode: lobbyCode,
       deviceName: username.trim(),
     };
+
+    sendMessage(dto);
   };
 
   const handleSubmit = () => {
-    console.log("Joining lobby with code:");
+    console.log(`Joining lobby with code: ${lobbyCode}`);
   };
 
   return (
@@ -155,15 +226,15 @@ const ExistingLobby = ({ navigation, route }: any) => {
             <View style={styles.tableRow}>
               <Text style={styles.headerCell}>Lobby</Text>
             </View>
-            {players.map((player: any) => (
-              <View key={player.id} style={styles.tableRow}>
-                <Text style={styles.cell}>{player.userName}</Text>
+            {players?.map((player: Device) => (
+              <View key={player?.userName} style={styles.tableRow}>
+                <Text style={styles.cell}>{player?.userName}</Text>
               </View>
             ))}
           </View>
         </ScrollView>
       </View>
-      <TouchableOpacity style={styles.button} onPress={handleSubmit}>
+      <TouchableOpacity style={styles.button} disabled={!isHost} onPress={handleSubmit}>
         <Text style={styles.buttonText}>Start Game</Text>
       </TouchableOpacity>
     </View>
