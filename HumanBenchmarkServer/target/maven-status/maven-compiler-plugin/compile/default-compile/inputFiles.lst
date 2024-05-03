@@ -1,14 +1,12 @@
 /Users/raphe/Desktop/HumanBenchmark/HumanBenchmarkServer/src/main/java/hb/humanbenchmarkserver/web/LobbyWebSocket.java
 /Users/raphe/Desktop/HumanBenchmark/HumanBenchmarkServer/src/main/java/hb/humanbenchmarkserver/service/SessionService.java
 /Users/raphe/Desktop/HumanBenchmark/HumanBenchmarkServer/src/main/java/hb/humanbenchmarkserver/config/OpenAPI30Config.java
-/Users/raphe/Desktop/HumanBenchmark/HumanBenchmarkServer/src/main/java/hb/humanbenchmarkserver/config/ServerWebSocketConfig.java
 /Users/raphe/Desktop/HumanBenchmark/HumanBenchmarkServer/src/main/java/hb/humanbenchmarkserver/model/enums/GAME_TYPE.java
 /Users/raphe/Desktop/HumanBenchmark/HumanBenchmarkServer/src/main/java/hb/humanbenchmarkserver/model/repositories/GameRepository.java
 /Users/raphe/Desktop/HumanBenchmark/HumanBenchmarkServer/src/main/java/hb/humanbenchmarkserver/service/DeviceService.java
 /Users/raphe/Desktop/HumanBenchmark/HumanBenchmarkServer/src/main/java/hb/humanbenchmarkserver/web/LobbyController.java
 /Users/raphe/Desktop/HumanBenchmark/HumanBenchmarkServer/src/main/java/hb/humanbenchmarkserver/model/entities/Game.java
 /Users/raphe/Desktop/HumanBenchmark/HumanBenchmarkServer/src/main/java/hb/humanbenchmarkserver/payload/viewmodel/UserLog.java
-/Users/raphe/Desktop/HumanBenchmark/HumanBenchmarkServer/src/main/java/hb/humanbenchmarkserver/handler/ServerWebSocketHandler.java
 /Users/raphe/Desktop/HumanBenchmark/HumanBenchmarkServer/src/main/java/hb/humanbenchmarkserver/model/repositories/DeviceRepository.java
 /Users/raphe/Desktop/HumanBenchmark/HumanBenchmarkServer/src/main/java/hb/humanbenchmarkserver/config/GlobalCorsConfig.java
 /Users/raphe/Desktop/HumanBenchmark/HumanBenchmarkServer/src/main/java/hb/humanbenchmarkserver/model/repositories/SessionRepository.java
