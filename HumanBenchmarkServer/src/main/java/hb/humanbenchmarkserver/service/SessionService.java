@@ -31,7 +31,7 @@ public class SessionService {
 
         StringBuilder sessionCode = new StringBuilder();
         for (int i = 0; i < 6; i++) {
-            sessionCode.append(Math.random() * 6 + 1);
+            sessionCode.append(Math.random() * 6);
         }
 
         Session session = sessionRepository.save(

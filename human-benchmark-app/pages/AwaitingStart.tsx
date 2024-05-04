@@ -40,7 +40,7 @@ const tempData = [
   }
 ];
 
-const ExistingLobby = ({ navigation, route }: any) => {
+const AwaitingStart = ({ navigation, route }: any) => {
   const [players, setPlayers] = useState<any>([]);
 
   useEffect(() => {
@@ -49,12 +49,11 @@ const ExistingLobby = ({ navigation, route }: any) => {
 
   const handleSubmit = () => {
     console.log("Joining lobby with code:");
-    navigation.navigate("Number Memory Instructions");
   };
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Join Existing Lobby</Text>
+      <Text style={styles.title}>Game will start soon</Text>
 
       <View style={styles.codeContainer}>
         <Text style={styles.codeText}>Code: ddddd</Text>
@@ -76,7 +75,7 @@ const ExistingLobby = ({ navigation, route }: any) => {
       </View>
 
       <TouchableOpacity style={styles.button} onPress={handleSubmit}>
-        <Text style={styles.buttonText}>Start Game</Text>
+        <Text style={styles.buttonText}>Waiting for leader to start game</Text>
       </TouchableOpacity>
     </View>
   );
@@ -153,7 +152,7 @@ const styles = StyleSheet.create({
     fontSize: 16
   },
   button: {
-    backgroundColor: "#34C759",
+    backgroundColor: "#CCCCCC",
     paddingVertical: 15,
     paddingHorizontal: 30,
     borderRadius: 8
@@ -165,4 +164,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default ExistingLobby;
+export default AwaitingStart;

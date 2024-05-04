@@ -11,6 +11,7 @@ const JoinLobby = ({ navigation, route }: any) => {
 
   const handleSubmit = () => {
     console.log(code);
+    navigation.navigate("Awaiting Start", { username });
   };
 
   return (
