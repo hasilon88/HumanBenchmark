@@ -7,7 +7,9 @@ const SessionManagement = ({ navigation, route }: any) => {
   const handleCreateSession = () => {
     // Handle create session logic
     console.log("Creating new session...");
-    navigation.navigate("ExistingLobby", { username });
+    let isHost = true;
+    let sessionCode = "";
+    navigation.navigate("ExistingLobby", { username, isHost, sessionCode });
   };
 
   const handleJoinSession = () => {
@@ -22,7 +24,7 @@ const SessionManagement = ({ navigation, route }: any) => {
         source={require("./path/to/your/image.png")}
         style={styles.logo}
       /> */}
-      <Text style={styles.title}>Ready to play {username} ?</Text>
+      <Text style={styles.title}>Ready to play {username.trim()} ?</Text>
       <View style={styles.buttonContainer}>
         <TouchableOpacity
           style={[styles.button, styles.createButton]}

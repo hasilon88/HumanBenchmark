@@ -1,6 +1,6 @@
 package hb.humanbenchmarkserver.model.repositories;
 
-import hb.humanbenchmarkserver.model.entities.Session;
+import hb.humanbenchmarkserver.model.entities.Lobby;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -14,6 +14,7 @@ import java.util.Optional;
  * HumanBenchmarkServer
  */
 @Repository
-public interface SessionRepository extends JpaRepository<Session, Long> {
-    Optional<Session> getSessionBySessionCode(String sessionCode);
+public interface SessionRepository extends JpaRepository<Lobby, Long> {
+    Optional<Lobby> getSessionBySessionCode(String sessionCode);
+    Boolean existsBySessionCode(String sessionCode);
 }

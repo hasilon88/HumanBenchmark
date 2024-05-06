@@ -15,5 +15,6 @@ import java.util.Optional;
  */
 @Repository
 public interface DeviceRepository extends JpaRepository<Device, Long> {
-    public Optional<Device> getDeviceByUserName(String username);
+    Optional<Device> getDeviceByUserName(String username);
+    Boolean existsByUserName(String username);
 }
