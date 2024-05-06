@@ -30,7 +30,7 @@ public class SessionService {
 
         StringBuilder sessionCode = new StringBuilder();
         for (int i = 0; i < 6; i++) {
-            sessionCode.append((int)(Math.random() * 9));
+            sessionCode.append(Math.random() * 6);
         }
 
         Lobby session = sessionRepository.save(

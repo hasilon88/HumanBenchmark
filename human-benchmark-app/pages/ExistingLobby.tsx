@@ -194,7 +194,8 @@ const ExistingLobby = ({ navigation, route }: any) => {
   };
 
   const handleSubmit = () => {
-    console.log(`Joining lobby with code: ${lobbyCode}`);
+    console.log("Joining lobby with code:");
+    navigation.navigate("Number Memory Instructions");
   };
 
   return (

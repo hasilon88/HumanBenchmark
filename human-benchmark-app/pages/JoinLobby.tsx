@@ -9,7 +9,8 @@ const JoinLobby = ({ navigation, route }: any) => {
     setCode(text.trim()); 
   };
 
-  const handleJoinSession = (sess_code: string) => {
+
+ const handleJoinSession = (sess_code: string) => {
     let isHost = false;
     let sessionCode = sess_code;
     navigation.navigate("ExistingLobby", { username, isHost, sessionCode });
