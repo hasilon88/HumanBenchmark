@@ -6,6 +6,8 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import JoinLobby from "./pages/JoinLobby";
 import ExistingLobby from "./pages/ExistingLobby";
 import AwaitingStart from "./pages/AwaitingStart";
+import 'text-encoding'; 
+
 import NumberMemoryInstructions from "./games/number-memory/NumberMemoryInstructions";
 import NummberMemoryTimer from "./games/number-memory/NumberMemoryTimer";
 import NumberMemoryValidator from "./games/number-memory/NumberMemoryValidator";
@@ -21,7 +23,7 @@ export default function App() {
         <Stack.Screen name="SessionManagement" component={SessionManagement} />
         <Stack.Screen name="JoinLobby" component={JoinLobby} />
 
-                {/* I do this so I can override going back button */}
+        {/* I do this so I can override going back button */}
         <Stack.Screen name="ExistingLobby" options={{headerLeft: (props) => {
           return <></>;
         }}} component={ExistingLobby} />
@@ -30,9 +32,6 @@ export default function App() {
         <Stack.Screen name="Number Memory Loading" component={NummberMemoryTimer} />
         <Stack.Screen name="Number Memory Game" component={NumberMemoryInput} />
         <Stack.Screen name="Number Memory Validate" component={NumberMemoryValidator} />
-
-
-
 
       </Stack.Navigator>
     </NavigationContainer>

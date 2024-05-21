@@ -10,9 +10,10 @@ import {
 } from "react-native";
 import * as API from "../api/";
 import { BASE_PATH } from "../api/base";
-import { CompatClient, Stomp } from "@stomp/stompjs";
+import { Client, Stomp } from "@stomp/stompjs";
 import SockJS from "sockjs-client";
 import { Device } from "../api/";
+
 
 export type JoinedDTO = {
   joined: boolean;
@@ -35,39 +36,36 @@ const ExistingLobby = ({ navigation, route }: any) => {
   const [players, setPlayers] = useState<API.Device[]>([]);
   const [lobbyCode, setLobbyCode] = useState<string>("");
   const [justJoined, setJustJoined] = useState(false);
-  const [stompClient, setStompClient] = useState<CompatClient>();
+  const [stompClient, setStompClient] = useState<Client>();
 
   useEffect(() => {
     const initWebSocket = () => {
-      const socket = new SockJS(`${BASE_PATH}/ws`);
-      const client = Stomp.over(socket);
-      client.connect(
-        {},
-        () => {
-          console.log("Connected to WebSocket");
-          setJustJoined(true);
-
-          if (!isHost) {
-            client.subscribe(`/topic/players/${sessionCode}`, (message) => {
-              const receivedMessage = JSON.parse(message.body);
-              console.log("Received message:", receivedMessage);
-
-              console.log(players);
-              messageCallback(receivedMessage);
-            });
-          }
-        },
-        (error: any) => {
-          console.error("WebSocket connection error:", error);
+      var brokerUrl = BASE_PATH + "/ws";
+      alert(brokerUrl);
+      const client = new Client({
+        brokerURL: brokerUrl,
+        webSocketFactory: function() {
+          return new SockJS(brokerUrl);
         }
-      );
+      });
+      
+      client.onConnect = () => {
+        console.log("Connected to WebSocket");
+        setJustJoined(true);
 
-      setStompClient(client);
 
-      return () => {
-        client.disconnect();
-        console.log("Disconnected from WebSocket");
+        if (!isHost) {
+          client.subscribe(`/topic/players/${sessionCode}`, (message) => {
+            const receivedMessage = JSON.parse(message.body);
+            console.log("Received message:", receivedMessage);
+            console.log(players);
+            messageCallback(receivedMessage);
+        }); 
+        }
       };
+
+      client.activate();
+      setStompClient(client);
     };
 
     initWebSocket();
@@ -101,21 +99,13 @@ const ExistingLobby = ({ navigation, route }: any) => {
             return;
           }
 
-          console.log(res.data);
-          console.log(`res.data`);
-
           setPlayers([...players, ...res.data]);
-
-          console.log(players);
-
           setLobbyCode(sessionCode);
         });
       }
     };
 
     initLobby();
-    console.log("session useeffect");
-
     return;
   }, [username]);
 
@@ -157,7 +147,6 @@ const ExistingLobby = ({ navigation, route }: any) => {
   useFocusEffect(
     useCallback(() => {
       const onBackPress = () => {
-        console.log("GOING BACK");
         handleLeave();
         return true;
       };
@@ -174,11 +163,7 @@ const ExistingLobby = ({ navigation, route }: any) => {
   );
 
   const sendMessage = (dto: JoinedDTO) => {
-    stompClient?.send(
-      `/app/lobby/${lobbyCode}`,
-      { sessionCode: lobbyCode },
-      JSON.stringify(dto)
-    );
+    stompClient?.publish({destination:`/app/lobby/${lobbyCode}`, body: JSON.stringify(dto), headers: { sessionCode: lobbyCode }});
   };
 
   const handleLeave = () => {
@@ -194,7 +179,6 @@ const ExistingLobby = ({ navigation, route }: any) => {
   };
 
   const handleSubmit = () => {
-    console.log("Joining lobby with code:");
     navigation.navigate("Number Memory Instructions");
   };
 
@@ -202,7 +186,7 @@ const ExistingLobby = ({ navigation, route }: any) => {
     <View style={styles.container}>
       <TouchableOpacity style={styles.leaveButton} onPress={handleLeave}>
         <Text style={styles.leaveButtonText}>Leave</Text>
-        <svg
+        {/* <svg
           xmlns="http://www.w3.org/2000/svg"
           fill="none"
           viewBox="0 0 24 24"
@@ -215,7 +199,7 @@ const ExistingLobby = ({ navigation, route }: any) => {
             strokeLinejoin="round"
             d="M8.25 9V5.25A2.25 2.25 0 0 1 10.5 3h6a2.25 2.25 0 0 1 2.25 2.25v13.5A2.25 2.25 0 0 1 16.5 21h-6a2.25 2.25 0 0 1-2.25-2.25V15m-3 0-3-3m0 0 3-3m-3 3H15"
           />
-        </svg>
+        </svg> */}
       </TouchableOpacity>
       <Text style={styles.title}>Join Existing Lobby</Text>
       <View style={styles.codeContainer}>
