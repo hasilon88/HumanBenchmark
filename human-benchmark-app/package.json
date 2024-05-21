@@ -34,7 +34,8 @@
     "sockjs": "^0.3.24",
     "sockjs-client": "^1.6.1",
     "tailwind-rn": "^4.2.0",
-    "text-encoding": "^0.7.0"
+    "text-encoding": "^0.7.0",
+    "react-native-super-grid": "^5.1.0"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",
