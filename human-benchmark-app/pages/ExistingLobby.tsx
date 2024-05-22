@@ -10,10 +10,9 @@ import {
 } from "react-native";
 import * as API from "../api/";
 import { BASE_PATH } from "../api/base";
-import { Client, Stomp } from "@stomp/stompjs";
+import { Client } from "@stomp/stompjs";
 import SockJS from "sockjs-client";
 import { Device } from "../api/";
-
 
 export type JoinedDTO = {
   joined: boolean;
@@ -33,6 +32,8 @@ const ExistingLobby = ({ navigation, route }: any) => {
   const deviceClient = new API.DeviceControllerApi();
 
   const { username, isHost, sessionCode } = route.params;
+
+  const [isHostState, setIsHostState] = useState(isHost);
   const [players, setPlayers] = useState<API.Device[]>([]);
   const [lobbyCode, setLobbyCode] = useState<string>("");
   const [justJoined, setJustJoined] = useState(false);
@@ -41,18 +42,16 @@ const ExistingLobby = ({ navigation, route }: any) => {
   useEffect(() => {
     const initWebSocket = () => {
       var brokerUrl = BASE_PATH + "/ws";
-      alert(brokerUrl);
       const client = new Client({
         brokerURL: brokerUrl,
-        webSocketFactory: function() {
+        webSocketFactory: function () {
           return new SockJS(brokerUrl);
-        }
+        },
       });
-      
+
       client.onConnect = () => {
         console.log("Connected to WebSocket");
         setJustJoined(true);
-
 
         if (!isHost) {
           client.subscribe(`/topic/players/${sessionCode}`, (message) => {
@@ -60,7 +59,7 @@ const ExistingLobby = ({ navigation, route }: any) => {
             console.log("Received message:", receivedMessage);
             console.log(players);
             messageCallback(receivedMessage);
-        }); 
+          });
         }
       };
 
@@ -130,6 +129,9 @@ const ExistingLobby = ({ navigation, route }: any) => {
   }, [justJoined, lobbyCode]);
 
   const messageCallback = (message: Message) => {
+    if (message.sessionCode === "START") {
+      StartGame();
+    }
     setPlayers((prevPlayers) => {
       if (message.joined) {
         return [
@@ -163,7 +165,11 @@ const ExistingLobby = ({ navigation, route }: any) => {
   );
 
   const sendMessage = (dto: JoinedDTO) => {
-    stompClient?.publish({destination:`/app/lobby/${lobbyCode}`, body: JSON.stringify(dto), headers: { sessionCode: lobbyCode }});
+    stompClient?.publish({
+      destination: `/app/lobby/${lobbyCode}`,
+      body: JSON.stringify(dto),
+      headers: { sessionCode: lobbyCode },
+    });
   };
 
   const handleLeave = () => {
@@ -178,9 +184,33 @@ const ExistingLobby = ({ navigation, route }: any) => {
     sendMessage(dto);
   };
 
-  const handleSubmit = () => {
+  useEffect(() => {
+
+    const checkHostStatus = () => {
+      if (
+        players.length === 0
+      ) {
+        return;
+      }
+
+      if (players[0].userName == username) {
+        setIsHostState(true);
+      }
+    }
+
+    checkHostStatus();
+  }, [players]);
+
+  const StartGame = () => {
     navigation.navigate("Number Memory Instructions", {username, sessionCode: lobbyCode, stompClient});
   };
+
+  /**
+  * Once this signal is sent, all devices listening to this broker will start.
+  */
+  const SendStartGameSignal = () => {
+    sendMessage({deviceName:"START", joined: false, sessionCode: lobbyCode});
+  }
 
   return (
     <View style={styles.container}>
@@ -211,17 +241,39 @@ const ExistingLobby = ({ navigation, route }: any) => {
             <View style={styles.tableRow}>
               <Text style={styles.headerCell}>Lobby</Text>
             </View>
-            {players?.map((player: Device) => (
-              <View key={player?.userName} style={styles.tableRow}>
-                <Text style={styles.cell}>{player?.userName}</Text>
-              </View>
-            ))}
+            {players?.map((player: Device, index: number) =>
+              index == 0 ? (
+                <View key={player?.userName} style={styles.tableRow}>
+                  <Text style={styles.cell}>{player?.userName} 👑</Text>
+                </View>
+              ) : (
+                <View key={player?.userName} style={styles.tableRow}>
+                  <Text style={styles.cell}>{player?.userName}</Text>
+                </View>
+              )
+            )}
           </View>
         </ScrollView>
       </View>
-      <TouchableOpacity style={styles.button} disabled={!isHost} onPress={handleSubmit}>
-        <Text style={styles.buttonText}>Start Game</Text>
-      </TouchableOpacity>
+
+      {isHostState ? (
+        <TouchableOpacity
+          style={styles.button}
+          disabled={!isHostState}
+          onPress={SendStartGameSignal}
+        >
+          <Text style={styles.buttonText}>Start Game</Text>
+        </TouchableOpacity>
+      ) : (
+        <View style={styles.cardContainer}>
+          <Text style={styles.cardTitle}>
+            Please wait For Host to start the game
+          </Text>
+          <Text style={styles.subtitle}>
+            Go head to head in this human benchmark competition.
+          </Text>
+        </View>
+      )}
     </View>
   );
 };
@@ -257,6 +309,29 @@ const styles = StyleSheet.create({
   playerList: {
     width: "100%",
     marginBottom: 20,
+  },
+  subtitle: {
+    color: "#bfdbfe",
+    fontSize: 16,
+    textAlign: "center",
+    marginTop: 8,
+  },
+  cardContainer: {
+    backgroundColor: "#3b82f6",
+    borderRadius: 10,
+    padding: 20,
+    margin: 16,
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    elevation: 5,
+  },
+  cardTitle: {
+    color: "#ffffff",
+    fontSize: 24,
+    fontWeight: "bold",
+    textAlign: "center",
   },
   playerListTitle: {
     fontSize: 20,
