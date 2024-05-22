@@ -179,7 +179,7 @@ const ExistingLobby = ({ navigation, route }: any) => {
   };
 
   const handleSubmit = () => {
-    navigation.navigate("Number Memory Instructions");
+    navigation.navigate("Number Memory Instructions", {username, sessionCode: lobbyCode, stompClient});
   };
 
   return (

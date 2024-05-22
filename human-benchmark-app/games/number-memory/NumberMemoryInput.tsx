@@ -3,13 +3,14 @@ import { StyleSheet, Text, View, TextInput, Pressable } from 'react-native';
 import { CountdownCircleTimer } from 'react-native-countdown-circle-timer';
 
 const NumberMemoryInput = ({ navigation, route }: any) => {
+    const { username, sessionCode, stompClient } = route.params;
     const [level, setLevel] = useState(route.params.level);
     const [randNumber, setRandNumber] = useState(route.params.randomNumber);
 
     const [userEntry, setUserEntry] = useState('');
 
     const handleValidation = () => {
-        navigation.navigate("Number Memory Validate", {level: level, randomNumber: randNumber, userEntry: parseInt(userEntry)});
+        navigation.navigate("Number Memory Validate", {level: level, randomNumber: randNumber, userEntry: parseInt(userEntry),  username, sessionCode, stompClient});
     }
 
     return (

@@ -1,2 +1,4 @@
 hb\humanbenchmarkserver\config\GlobalCorsConfig.class
+hb\humanbenchmarkserver\payload\dto\UpdateScoreDTO$UpdateScoreDTOBuilder.class
 hb\humanbenchmarkserver\config\OpenAPI30Config.class
+hb\humanbenchmarkserver\payload\dto\UpdateScoreDTO.class

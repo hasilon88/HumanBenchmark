@@ -6,8 +6,11 @@ function generateRandomNumber(level: number) {
     return Math.floor(Math.random() * (Math.pow(10, level) - 1 + 1)) + 1;
 }
 
-const NumberMemoryTimer = ({ navigation, route }: any) => {  
+const NumberMemoryTimer = ({ navigation, route }: any) => {
+    const { username, sessionCode, stompClient } = route.params;
+
     const [level, setLevel] = useState(0);
+    const [score, setScore] = useState(0);
     const [randNumber, setRandNumber] = useState(0);
     const [roundStarted, setRoundStarted] = useState(false);
     const [key, setKey] = useState(0);
@@ -18,6 +21,7 @@ const NumberMemoryTimer = ({ navigation, route }: any) => {
             setRoundStarted(true);
             const newLevel = route.params.level + 1;
             setLevel(newLevel);
+            setScore(route.params.score);
             setRandNumber(generateRandomNumber(newLevel));
         }
 
@@ -26,7 +30,7 @@ const NumberMemoryTimer = ({ navigation, route }: any) => {
     }, [route.params.level]);
 
     const handleTimerEnd = () => {
-        navigation.navigate("Number Memory Game", { level: level, randomNumber: randNumber });
+        navigation.navigate("Number Memory Game", { level: level, randomNumber: randNumber, score: score, username, sessionCode, stompClient });
         setRoundStarted(false);
     }
 

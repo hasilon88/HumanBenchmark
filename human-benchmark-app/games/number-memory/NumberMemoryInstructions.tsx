@@ -1,11 +1,14 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { StyleSheet, Text, Pressable, View } from 'react-native';
 
-const NumberMemoryInstructions = ({ navigation }: any) => {
-  
+const NumberMemoryInstructions = ({ navigation, route }: any) => {
+  const { username, sessionCode, stompClient } = route.params;
+
+  console.log(sessionCode);
+
   const handleGameStart = () => {
-    navigation.navigate("Number Memory Loading", {level: 0});
-  }
+    navigation.navigate("Number Memory Loading", { level: 0, score: 0, username, sessionCode, stompClient });
+  };
 
   return (
     <View style={styles.container}>
@@ -13,9 +16,7 @@ const NumberMemoryInstructions = ({ navigation }: any) => {
         <Text style={styles.title}>Welcome to Number Memory!</Text>
         <Text style={styles.text}>Can you remember the longest number?</Text>
         <Text style={styles.text}>Pay close attention and test your memory!</Text>
-        <Pressable
-          style={styles.startButton}
-          onPress={handleGameStart}>
+        <Pressable style={styles.startButton} onPress={handleGameStart}>
           <Text style={styles.buttonText}>Start Game</Text>
         </Pressable>
       </View>
