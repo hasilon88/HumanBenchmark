@@ -1,9 +1,11 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { StyleSheet, Text, Pressable, View } from "react-native";
 
-const ChimpTestInstructions = ({ navigation }: any) => {
+const ChimpTestInstructions = ({ navigation, route }: any) => {
+  const { username, sessionCode, stompClient, score } = route.params;
+
   const handleGameStart = () => {
-    navigation.navigate("Chimp Memorize Sequence", { level: 0 });
+    navigation.navigate("Chimp Memorize Sequence", { level: 0, username, sessionCode, stompClient, score });
   };
 
   return (

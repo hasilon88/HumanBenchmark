@@ -3,6 +3,7 @@ package hb.humanbenchmarkserver.web;
 import hb.humanbenchmarkserver.model.entities.Device;
 import hb.humanbenchmarkserver.model.entities.Lobby;
 import hb.humanbenchmarkserver.payload.dto.JoinSessionDTO;
+import hb.humanbenchmarkserver.payload.dto.UpdateScoreDTO;
 import hb.humanbenchmarkserver.payload.viewmodel.UserLog;
 import hb.humanbenchmarkserver.service.DeviceService;
 import hb.humanbenchmarkserver.service.SessionService;
@@ -31,7 +32,6 @@ public class LobbyWebSocket {
     @MessageMapping("/lobby/{sessionCode}")
     @SendTo("/topic/players/{sessionCode}")
     public UserLog joinSession(@DestinationVariable String sessionCode, JoinSessionDTO dto) {
-
         try {
             log.info(dto.toString());
 

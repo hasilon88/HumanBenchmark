@@ -94,7 +94,6 @@ public class LobbyController {
         }
 
         try {
-
             Lobby lobby = Lobby
                     .builder()
                     .isStarted(false)
@@ -112,7 +111,4 @@ public class LobbyController {
             return ResponseEntity.badRequest().body("Error creating lobby");
         }
     }
-
-
-
 }

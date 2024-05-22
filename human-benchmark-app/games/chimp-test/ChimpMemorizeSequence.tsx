@@ -11,6 +11,8 @@ const shuffle = (array: string[]) => {
 };
 
 const ChimpMemorizeSequence = ({ navigation, route }: any) => {
+  const { username, sessionCode, stompClient, score } = route.params;
+
   const [level, setLevel] = useState(0);
   const [items, setItems] = useState<string[]>([]);
   const [showNumber, setShowNumber] = useState(true);
@@ -29,11 +31,11 @@ const ChimpMemorizeSequence = ({ navigation, route }: any) => {
     const nextNumberSequence = numberSequence + 1;
 
     if (pressedNumber !== nextNumberSequence) {
-      navigation.navigate("Chimp Validator", { level: level, levelSucceeded: false });
+      navigation.navigate("Chimp Validator", { level: level, levelSucceeded: false, username, sessionCode, stompClient, score });
     }
 
     if (pressedNumber === level) {
-      navigation.navigate("Chimp Validator", { level: level, levelSucceeded: true });
+      navigation.navigate("Chimp Validator", { level: level, levelSucceeded: true, username, sessionCode, stompClient, score });
     }
 
     if (pressedNumber <= level) {
