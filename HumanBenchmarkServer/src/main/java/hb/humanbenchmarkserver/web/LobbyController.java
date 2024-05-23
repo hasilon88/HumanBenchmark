@@ -2,6 +2,7 @@ package hb.humanbenchmarkserver.web;
 
 import hb.humanbenchmarkserver.model.entities.Device;
 import hb.humanbenchmarkserver.model.entities.Lobby;
+import hb.humanbenchmarkserver.payload.viewmodel.LeaderBoardLogViewModel;
 import hb.humanbenchmarkserver.service.DeviceService;
 import hb.humanbenchmarkserver.service.SessionService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -12,12 +13,14 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.coyote.Response;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
 
@@ -103,12 +106,50 @@ public class LobbyController {
                     .build();
             lobby.getPlayers().add(device);
             lobby = sessionService.save(lobby);
-            log.info("LOBBY CREATION : " + lobby);
+            log.info("LOBBY CREATION : {}", lobby);
             return ResponseEntity.ok(lobby.getSessionCode());
 
         } catch (Exception e) {
-            log.error("Error creating lobby: " + e.getMessage());
+            log.error("Error creating lobby: {}", e.getMessage());
             return ResponseEntity.badRequest().body("Error creating lobby");
+        }
+    }
+
+    @GetMapping("/get-lobby-scores")
+    @Operation(summary = "Gets a lobby's player's that are done.")
+    @ApiResponses(value = {
+            @ApiResponse(
+                    responseCode = "200", description = "Scanners sent successfully.",
+                    content = {
+                            @Content(mediaType = "application/json",
+                                    array = @ArraySchema(schema = @Schema(implementation = LeaderBoardLogViewModel.class)))
+                    }
+            ),
+            @ApiResponse(
+                    responseCode = "400", description = "Bad Request.",
+                    content = @Content
+            ),
+    })
+    public ResponseEntity<Collection<LeaderBoardLogViewModel>> getCurrentSession(@RequestParam String sessionCode, @RequestParam Integer nthPlaceFinished) {
+        try {
+            Lobby lobby = sessionService.getSessionByCodeOrDefault(sessionCode);
+            assert lobby != null;
+            ArrayList<LeaderBoardLogViewModel> leaderBoardLogViewModels = new ArrayList<>();
+            for (Device device:lobby.getPlayers()) {
+                if (device.getDonePlaying()) {
+                    leaderBoardLogViewModels.add(
+                            LeaderBoardLogViewModel
+                                    .builder()
+                                    .isLastToFinish(nthPlaceFinished == lobby.getPlayers().size())
+                                    .score(device.getScore())
+                                    .deviceName(device.getUserName())
+                                    .build()
+                    );
+                }
+            }
+            return ResponseEntity.ok().body(leaderBoardLogViewModels);
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(null);
         }
     }
 }

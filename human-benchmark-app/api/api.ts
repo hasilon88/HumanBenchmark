@@ -126,6 +126,12 @@ export interface Device {
     'userName'?: string;
     /**
      * 
+     * @type {number}
+     * @memberof Device
+     */
+    'nthPlaceFinished'?: number;
+    /**
+     * 
      * @type {boolean}
      * @memberof Device
      */
@@ -157,6 +163,12 @@ export interface DeviceRequestBody {
     'userName'?: string;
     /**
      * 
+     * @type {number}
+     * @memberof DeviceRequestBody
+     */
+    'nthPlaceFinished'?: number;
+    /**
+     * 
      * @type {boolean}
      * @memberof DeviceRequestBody
      */
@@ -182,6 +194,12 @@ export interface DeviceResponse {
     'userName'?: string;
     /**
      * 
+     * @type {number}
+     * @memberof DeviceResponse
+     */
+    'nthPlaceFinished'?: number;
+    /**
+     * 
      * @type {boolean}
      * @memberof DeviceResponse
      */
@@ -205,6 +223,12 @@ export interface EntityModelDevice {
      * @memberof EntityModelDevice
      */
     'userName'?: string;
+    /**
+     * 
+     * @type {number}
+     * @memberof EntityModelDevice
+     */
+    'nthPlaceFinished'?: number;
     /**
      * 
      * @type {boolean}
@@ -410,6 +434,31 @@ export interface JsonSchema {
      * @memberof JsonSchema
      */
     '$schema'?: string;
+}
+/**
+ * 
+ * @export
+ * @interface LeaderBoardLogViewModel
+ */
+export interface LeaderBoardLogViewModel {
+    /**
+     * 
+     * @type {string}
+     * @memberof LeaderBoardLogViewModel
+     */
+    'deviceName'?: string;
+    /**
+     * 
+     * @type {number}
+     * @memberof LeaderBoardLogViewModel
+     */
+    'score'?: number;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof LeaderBoardLogViewModel
+     */
+    'isLastToFinish'?: boolean;
 }
 /**
  * 
@@ -1921,6 +1970,50 @@ export const LobbyControllerApiAxiosParamCreator = function (configuration?: Con
         },
         /**
          * 
+         * @summary Gets a lobby\'s player\'s that are done.
+         * @param {string} sessionCode 
+         * @param {number} nthPlaceFinished 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getCurrentSession: async (sessionCode: string, nthPlaceFinished: number, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'sessionCode' is not null or undefined
+            assertParamExists('getCurrentSession', 'sessionCode', sessionCode)
+            // verify required parameter 'nthPlaceFinished' is not null or undefined
+            assertParamExists('getCurrentSession', 'nthPlaceFinished', nthPlaceFinished)
+            const localVarPath = `/v1/lobby/get-lobby-scores`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            if (sessionCode !== undefined) {
+                localVarQueryParameter['sessionCode'] = sessionCode;
+            }
+
+            if (nthPlaceFinished !== undefined) {
+                localVarQueryParameter['nthPlaceFinished'] = nthPlaceFinished;
+            }
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
          * @summary Gets a lobby\'s players.
          * @param {string} lobbyCode 
          * @param {*} [options] Override http request option.
@@ -1981,6 +2074,20 @@ export const LobbyControllerApiFp = function(configuration?: Configuration) {
         },
         /**
          * 
+         * @summary Gets a lobby\'s player\'s that are done.
+         * @param {string} sessionCode 
+         * @param {number} nthPlaceFinished 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getCurrentSession(sessionCode: string, nthPlaceFinished: number, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<LeaderBoardLogViewModel>>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getCurrentSession(sessionCode, nthPlaceFinished, options);
+            const index = configuration?.serverIndex ?? 0;
+            const operationBasePath = operationServerMap['LobbyControllerApi.getCurrentSession']?.[index]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
+        },
+        /**
+         * 
          * @summary Gets a lobby\'s players.
          * @param {string} lobbyCode 
          * @param {*} [options] Override http request option.
@@ -2014,6 +2121,17 @@ export const LobbyControllerApiFactory = function (configuration?: Configuration
         },
         /**
          * 
+         * @summary Gets a lobby\'s player\'s that are done.
+         * @param {string} sessionCode 
+         * @param {number} nthPlaceFinished 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getCurrentSession(sessionCode: string, nthPlaceFinished: number, options?: any): AxiosPromise<Array<LeaderBoardLogViewModel>> {
+            return localVarFp.getCurrentSession(sessionCode, nthPlaceFinished, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
          * @summary Gets a lobby\'s players.
          * @param {string} lobbyCode 
          * @param {*} [options] Override http request option.
@@ -2042,6 +2160,19 @@ export class LobbyControllerApi extends BaseAPI {
      */
     public createLobby(deviceName: string, options?: RawAxiosRequestConfig) {
         return LobbyControllerApiFp(this.configuration).createLobby(deviceName, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @summary Gets a lobby\'s player\'s that are done.
+     * @param {string} sessionCode 
+     * @param {number} nthPlaceFinished 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof LobbyControllerApi
+     */
+    public getCurrentSession(sessionCode: string, nthPlaceFinished: number, options?: RawAxiosRequestConfig) {
+        return LobbyControllerApiFp(this.configuration).getCurrentSession(sessionCode, nthPlaceFinished, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**

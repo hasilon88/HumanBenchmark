@@ -61,6 +61,7 @@ const ExistingLobby = ({ navigation, route }: any) => {
             messageCallback(receivedMessage);
           });
         }
+
       };
 
       client.activate();
@@ -185,32 +186,33 @@ const ExistingLobby = ({ navigation, route }: any) => {
   };
 
   useEffect(() => {
-
     const checkHostStatus = () => {
-      if (
-        players.length === 0
-      ) {
+      if (players.length === 0) {
         return;
       }
 
       if (players[0].userName == username) {
         setIsHostState(true);
       }
-    }
+    };
 
     checkHostStatus();
   }, [players]);
 
   const StartGame = () => {
-    navigation.navigate("Number Memory Instructions", {username, sessionCode: lobbyCode, stompClient});
+    navigation.navigate("Number Memory Instructions", {
+      username,
+      sessionCode: lobbyCode,
+      stompClient,
+    });
   };
 
   /**
-  * Once this signal is sent, all devices listening to this broker will start.
-  */
+   * Once this signal is sent, all devices listening to this broker will start.
+   */
   const SendStartGameSignal = () => {
-    sendMessage({deviceName:"START", joined: false, sessionCode: lobbyCode});
-  }
+    sendMessage({ deviceName: "START", joined: false, sessionCode: lobbyCode });
+  };
 
   return (
     <View style={styles.container}>
