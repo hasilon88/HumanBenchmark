@@ -26,6 +26,7 @@ public class Device implements Serializable {
     private Long id;
     @Column(unique = true)
     private String userName;
+    private Integer nthPlaceFinished;
     private Boolean donePlaying;
     private int score;
 }

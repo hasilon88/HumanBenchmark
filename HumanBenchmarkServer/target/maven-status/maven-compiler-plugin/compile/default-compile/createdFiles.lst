@@ -1,4 +1,8 @@
+hb\humanbenchmarkserver\payload\dto\LeaderBoardLogDTO.class
+hb\humanbenchmarkserver\payload\viewmodel\LeaderBoardLogViewModel.class
+hb\humanbenchmarkserver\payload\dto\LeaderBoardLogDTO$LeaderBoardLogDTOBuilder.class
 hb\humanbenchmarkserver\config\GlobalCorsConfig.class
 hb\humanbenchmarkserver\payload\dto\UpdateScoreDTO$UpdateScoreDTOBuilder.class
 hb\humanbenchmarkserver\config\OpenAPI30Config.class
+hb\humanbenchmarkserver\payload\viewmodel\LeaderBoardLogViewModel$LeaderBoardLogViewModelBuilder.class
 hb\humanbenchmarkserver\payload\dto\UpdateScoreDTO.class

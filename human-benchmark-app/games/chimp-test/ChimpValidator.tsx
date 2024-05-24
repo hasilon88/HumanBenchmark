@@ -42,15 +42,17 @@ const ChimpValidator = ({ navigation, route }: any) => {
   }, [levelSucceeded]);
 
   const handleContinue = () => {
-    levelSucceeded
-      ? navigation.navigate("Chimp Memorize Sequence", {
-          level,
-          score,
-          stompClient,
-          username,
-          sessionCode,
-        })
-      : navigation.navigate("Login");
+    if (levelSucceeded && level < 3) {
+      navigation.navigate("Chimp Memorize Sequence", {
+        level,
+        score,
+        stompClient,
+        username,
+        sessionCode,
+      })
+    } else {
+      navigation.navigate("Leaderboard", {username, sessionCode, stompClient});
+    }
   };
 
   return (

@@ -15,6 +15,7 @@ import NumberMemoryInput from "./games/number-memory/NumberMemoryInput";
 import ChimpTestInstructions from "./games/chimp-test/ChimpInstructions";
 import ChimpMemorizeSequence from "./games/chimp-test/ChimpMemorizeSequence";
 import ChimpValidator from "./games/chimp-test/ChimpValidator";
+import Leaderboard from "./games/Leaderboard";
 
 const Stack = createNativeStackNavigator();
 
@@ -40,6 +41,8 @@ export default function App() {
         <Stack.Screen name="Chimp Test Instructions" component={ChimpTestInstructions} />
         <Stack.Screen name="Chimp Memorize Sequence" component={ChimpMemorizeSequence} />
         <Stack.Screen name="Chimp Validator" component={ChimpValidator} />
+
+        <Stack.Screen name="Leaderboard" component={Leaderboard} />
 
       </Stack.Navigator>
     </NavigationContainer>
