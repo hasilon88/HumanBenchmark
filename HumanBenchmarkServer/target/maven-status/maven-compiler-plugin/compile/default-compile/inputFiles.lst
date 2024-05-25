@@ -1,25 +1,25 @@
-C:\Users\hasil\HumanBenchmark\HumanBenchmarkServer\src\main\java\hb\humanbenchmarkserver\model\enums\GAME_TYPE.java
-C:\Users\hasil\HumanBenchmark\HumanBenchmarkServer\src\main\java\hb\humanbenchmarkserver\payload\viewmodel\UserLog.java
-C:\Users\hasil\HumanBenchmark\HumanBenchmarkServer\src\main\java\hb\humanbenchmarkserver\HumanBenchmarkServerApplication.java
-C:\Users\hasil\HumanBenchmark\HumanBenchmarkServer\src\main\java\hb\humanbenchmarkserver\model\repositories\GameRepository.java
-C:\Users\hasil\HumanBenchmark\HumanBenchmarkServer\src\main\java\hb\humanbenchmarkserver\config\OpenAPI30Config.java
-C:\Users\hasil\HumanBenchmark\HumanBenchmarkServer\src\main\java\hb\humanbenchmarkserver\service\SessionService.java
-C:\Users\hasil\HumanBenchmark\HumanBenchmarkServer\src\main\java\hb\humanbenchmarkserver\web\LobbyWebSocket.java
-C:\Users\hasil\HumanBenchmark\HumanBenchmarkServer\src\main\java\hb\humanbenchmarkserver\model\repositories\DeviceRepository.java
-C:\Users\hasil\HumanBenchmark\HumanBenchmarkServer\src\main\java\hb\humanbenchmarkserver\model\entities\Device.java
-C:\Users\hasil\HumanBenchmark\HumanBenchmarkServer\src\main\java\hb\humanbenchmarkserver\model\repositories\SessionRepository.java
-C:\Users\hasil\HumanBenchmark\HumanBenchmarkServer\src\main\java\hb\humanbenchmarkserver\web\DeviceController.java
-C:\Users\hasil\HumanBenchmark\HumanBenchmarkServer\src\main\java\hb\humanbenchmarkserver\model\entities\SessionGameLog.java
-C:\Users\hasil\HumanBenchmark\HumanBenchmarkServer\src\main\java\hb\humanbenchmarkserver\model\entities\DataLoader.java
-C:\Users\hasil\HumanBenchmark\HumanBenchmarkServer\src\main\java\hb\humanbenchmarkserver\payload\dto\UpdateScoreDTO.java
-C:\Users\hasil\HumanBenchmark\HumanBenchmarkServer\src\main\java\hb\humanbenchmarkserver\config\WebSocketConfigs.java
-C:\Users\hasil\HumanBenchmark\HumanBenchmarkServer\src\main\java\hb\humanbenchmarkserver\service\DeviceService.java
-C:\Users\hasil\HumanBenchmark\HumanBenchmarkServer\src\main\java\hb\humanbenchmarkserver\payload\dto\LeaderBoardLogDTO.java
-C:\Users\hasil\HumanBenchmark\HumanBenchmarkServer\src\main\java\hb\humanbenchmarkserver\payload\viewmodel\LeaderBoardLogViewModel.java
-C:\Users\hasil\HumanBenchmark\HumanBenchmarkServer\src\main\java\hb\humanbenchmarkserver\model\entities\Game.java
-C:\Users\hasil\HumanBenchmark\HumanBenchmarkServer\src\main\java\hb\humanbenchmarkserver\web\LobbyController.java
-C:\Users\hasil\HumanBenchmark\HumanBenchmarkServer\src\main\java\hb\humanbenchmarkserver\payload\dto\JoinSessionDTO.java
-C:\Users\hasil\HumanBenchmark\HumanBenchmarkServer\src\main\java\hb\humanbenchmarkserver\model\entities\Lobby.java
-C:\Users\hasil\HumanBenchmark\HumanBenchmarkServer\src\main\java\hb\humanbenchmarkserver\web\GameWebSocket.java
-C:\Users\hasil\HumanBenchmark\HumanBenchmarkServer\src\main\java\hb\humanbenchmarkserver\config\GlobalCorsConfig.java
-C:\Users\hasil\HumanBenchmark\HumanBenchmarkServer\src\main\java\hb\humanbenchmarkserver\payload\dto\CreateSessionDTO.java
+C:\Users\Raph\OneDrive - Cégep Marie-Victorin\Downloads\4th_Session\Application_Projet\HumanBenchmark\HumanBenchmarkServer\src\main\java\hb\humanbenchmarkserver\web\GameWebSocket.java
+C:\Users\Raph\OneDrive - Cégep Marie-Victorin\Downloads\4th_Session\Application_Projet\HumanBenchmark\HumanBenchmarkServer\src\main\java\hb\humanbenchmarkserver\model\entities\Lobby.java
+C:\Users\Raph\OneDrive - Cégep Marie-Victorin\Downloads\4th_Session\Application_Projet\HumanBenchmark\HumanBenchmarkServer\src\main\java\hb\humanbenchmarkserver\model\entities\SessionGameLog.java
+C:\Users\Raph\OneDrive - Cégep Marie-Victorin\Downloads\4th_Session\Application_Projet\HumanBenchmark\HumanBenchmarkServer\src\main\java\hb\humanbenchmarkserver\model\entities\Device.java
+C:\Users\Raph\OneDrive - Cégep Marie-Victorin\Downloads\4th_Session\Application_Projet\HumanBenchmark\HumanBenchmarkServer\src\main\java\hb\humanbenchmarkserver\config\WebSocketConfigs.java
+C:\Users\Raph\OneDrive - Cégep Marie-Victorin\Downloads\4th_Session\Application_Projet\HumanBenchmark\HumanBenchmarkServer\src\main\java\hb\humanbenchmarkserver\model\repositories\GameRepository.java
+C:\Users\Raph\OneDrive - Cégep Marie-Victorin\Downloads\4th_Session\Application_Projet\HumanBenchmark\HumanBenchmarkServer\src\main\java\hb\humanbenchmarkserver\payload\dto\LeaderBoardLogDTO.java
+C:\Users\Raph\OneDrive - Cégep Marie-Victorin\Downloads\4th_Session\Application_Projet\HumanBenchmark\HumanBenchmarkServer\src\main\java\hb\humanbenchmarkserver\model\repositories\DeviceRepository.java
+C:\Users\Raph\OneDrive - Cégep Marie-Victorin\Downloads\4th_Session\Application_Projet\HumanBenchmark\HumanBenchmarkServer\src\main\java\hb\humanbenchmarkserver\payload\viewmodel\LeaderBoardLogViewModel.java
+C:\Users\Raph\OneDrive - Cégep Marie-Victorin\Downloads\4th_Session\Application_Projet\HumanBenchmark\HumanBenchmarkServer\src\main\java\hb\humanbenchmarkserver\HumanBenchmarkServerApplication.java
+C:\Users\Raph\OneDrive - Cégep Marie-Victorin\Downloads\4th_Session\Application_Projet\HumanBenchmark\HumanBenchmarkServer\src\main\java\hb\humanbenchmarkserver\service\SessionService.java
+C:\Users\Raph\OneDrive - Cégep Marie-Victorin\Downloads\4th_Session\Application_Projet\HumanBenchmark\HumanBenchmarkServer\src\main\java\hb\humanbenchmarkserver\payload\dto\UpdateScoreDTO.java
+C:\Users\Raph\OneDrive - Cégep Marie-Victorin\Downloads\4th_Session\Application_Projet\HumanBenchmark\HumanBenchmarkServer\src\main\java\hb\humanbenchmarkserver\payload\dto\JoinSessionDTO.java
+C:\Users\Raph\OneDrive - Cégep Marie-Victorin\Downloads\4th_Session\Application_Projet\HumanBenchmark\HumanBenchmarkServer\src\main\java\hb\humanbenchmarkserver\web\LobbyController.java
+C:\Users\Raph\OneDrive - Cégep Marie-Victorin\Downloads\4th_Session\Application_Projet\HumanBenchmark\HumanBenchmarkServer\src\main\java\hb\humanbenchmarkserver\model\entities\Game.java
+C:\Users\Raph\OneDrive - Cégep Marie-Victorin\Downloads\4th_Session\Application_Projet\HumanBenchmark\HumanBenchmarkServer\src\main\java\hb\humanbenchmarkserver\config\GlobalCorsConfig.java
+C:\Users\Raph\OneDrive - Cégep Marie-Victorin\Downloads\4th_Session\Application_Projet\HumanBenchmark\HumanBenchmarkServer\src\main\java\hb\humanbenchmarkserver\web\LobbyWebSocket.java
+C:\Users\Raph\OneDrive - Cégep Marie-Victorin\Downloads\4th_Session\Application_Projet\HumanBenchmark\HumanBenchmarkServer\src\main\java\hb\humanbenchmarkserver\model\entities\DataLoader.java
+C:\Users\Raph\OneDrive - Cégep Marie-Victorin\Downloads\4th_Session\Application_Projet\HumanBenchmark\HumanBenchmarkServer\src\main\java\hb\humanbenchmarkserver\payload\viewmodel\UserLog.java
+C:\Users\Raph\OneDrive - Cégep Marie-Victorin\Downloads\4th_Session\Application_Projet\HumanBenchmark\HumanBenchmarkServer\src\main\java\hb\humanbenchmarkserver\config\OpenAPI30Config.java
+C:\Users\Raph\OneDrive - Cégep Marie-Victorin\Downloads\4th_Session\Application_Projet\HumanBenchmark\HumanBenchmarkServer\src\main\java\hb\humanbenchmarkserver\model\repositories\SessionRepository.java
+C:\Users\Raph\OneDrive - Cégep Marie-Victorin\Downloads\4th_Session\Application_Projet\HumanBenchmark\HumanBenchmarkServer\src\main\java\hb\humanbenchmarkserver\payload\dto\CreateSessionDTO.java
+C:\Users\Raph\OneDrive - Cégep Marie-Victorin\Downloads\4th_Session\Application_Projet\HumanBenchmark\HumanBenchmarkServer\src\main\java\hb\humanbenchmarkserver\web\DeviceController.java
+C:\Users\Raph\OneDrive - Cégep Marie-Victorin\Downloads\4th_Session\Application_Projet\HumanBenchmark\HumanBenchmarkServer\src\main\java\hb\humanbenchmarkserver\service\DeviceService.java
+C:\Users\Raph\OneDrive - Cégep Marie-Victorin\Downloads\4th_Session\Application_Projet\HumanBenchmark\HumanBenchmarkServer\src\main\java\hb\humanbenchmarkserver\model\enums\GAME_TYPE.java

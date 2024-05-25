@@ -27,6 +27,7 @@ const NumberMemoryTimer = ({ navigation, route }: any) => {
 
         initRound();
         setKey(prevKey => prevKey + 1);
+
     }, [route.params.level]);
 
     const handleTimerEnd = () => {
@@ -43,7 +44,7 @@ const NumberMemoryTimer = ({ navigation, route }: any) => {
             <View style={styles.lowerSection}>
                 <CountdownCircleTimer
                     isPlaying={roundStarted}
-                    duration={7}
+                    duration={randNumber.toString().length < 3 ? 3.5: 7}
                     colors={['#004777', '#F7B801', '#A30000', '#A30000']}
                     colorsTime={[7, 5, 2, 0]}
                     onComplete={handleTimerEnd}

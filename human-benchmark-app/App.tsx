@@ -15,7 +15,7 @@ import NumberMemoryInput from "./games/number-memory/NumberMemoryInput";
 import ChimpTestInstructions from "./games/chimp-test/ChimpInstructions";
 import ChimpMemorizeSequence from "./games/chimp-test/ChimpMemorizeSequence";
 import ChimpValidator from "./games/chimp-test/ChimpValidator";
-import Leaderboard from "./games/Leaderboard";
+import Leaderboard from "./pages/Leaderboard";
 
 const Stack = createNativeStackNavigator();
 
