@@ -6,7 +6,7 @@ import {
   TextInput,
   TouchableOpacity,
 } from "react-native";
-import * as API from "../api/"
+import * as API from "../api/api";
 
 const Login = ({ navigation }: any) => {
   const [username, setUsername] = useState<string>("");

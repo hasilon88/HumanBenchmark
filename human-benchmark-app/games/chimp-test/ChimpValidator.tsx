@@ -51,7 +51,7 @@ const ChimpValidator = ({ navigation, route }: any) => {
         sessionCode,
       })
     } else {
-      navigation.navigate("Leaderboard", {username, sessionCode, stompClient});
+      navigation.navigate("Leaderboard", {username, sessionCode});
     }
   };
 

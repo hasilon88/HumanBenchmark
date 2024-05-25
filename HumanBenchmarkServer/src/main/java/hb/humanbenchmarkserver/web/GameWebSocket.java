@@ -39,7 +39,7 @@ public class GameWebSocket {
 
         for (Device player : players) {
             if (player.getUserName().equals(dto.getDeviceName())) {
-                player.setScore(dto.getScore());
+                player.setScore(dto.getScore() + player.getScore());
                 deviceService.save(player);
                 break;
             }
@@ -56,6 +56,8 @@ public class GameWebSocket {
     @SendTo("/topic/leaderboard")
     public LeaderBoardLogViewModel leaderboardStatus(LeaderBoardLogDTO dto) {
 
+
+        log.info(dto.getDeviceName() + " IN LEADERBOARD");
         Device device = this.deviceService.getDeviceOrDefault(dto.getDeviceName());
         Lobby lobby = sessionService.getSessionByCodeOrDefault(dto.getSessionCode());
         assert lobby != null;
