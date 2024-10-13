@@ -1,57 +1,27 @@
-# Human Bench Mark Game 🧩
----
+# HumanBenchmark 🎮🌍
 
-# Get Started 
-```git
-1. git clone https://github.com/hasilon88/HumanBenchmark.git
-```
+## Overview
 
-## Setup
+Welcome to **HumanBenchmark**! This project is a cross-platform multiplayer game developed using **React Native** for the frontend and **Spring Boot** for the backend. The platform consists of multiple mini-games designed to test your skills, compete with friends, and earn points. Whether you're on iOS, Android, or the web, join in on the fun and challenge yourself! 🚀✨
 
-### Backend (`/HumanBenchmarkServer`)
+## Features
 
-###### prerequisite :
+- **Cross-Platform Support**: Play on iOS, Android, and web browsers! 📱💻
+- **Real-Time Multiplayer**: Engage with friends and players around the world using WebSockets for instant communication. 🌐⚡
+- **Multiple Mini Games**: Enjoy a variety of fun mini-games, each with unique mechanics and challenges! 🕹️🎉
+- **Point System**: Compete for the highest score and earn points for completing games and challenges. 🏆📊
+- **User Profiles**: Create and manage your profile, track your achievements, and view your rankings! 👤🎖️
 
->**In the `/HumanBenchmarkServer/src/main/resources/application.properties` file, you will need to replace the `server.ip` property with your machine's IP address.**
+## Technologies Used
 
----
+- **Frontend**: React Native for a seamless mobile experience 🌟
+- **Backend**: Spring Boot for robust server-side management 🐍
+- **WebSockets**: For real-time communication and game interactions 🔄
+- **Database**: H2 for lightweight and fast in-memory data storage 🗄️
 
-1. **navigate to the server root.**
 
-```shell
-cd /HumanBenchmarkServer
-```
+### Prerequisites
 
-2. **Generate Client Code.**
-
-```shell
-mvn verify
-```
-
----
-
-### Frontend (`human-benchmark-app`)
-
-1. **Navigate to the frontend root.**
-
-```shell
-cd /human-benchmark-app
-```
-
-2. **Install required dependencies.**
-
-```shell
-npm i
-```
-
-3. **Install expo cli.**
-
-```shell
-npm install -g expo-cli 
-```
-
-4. **Start the app.**
-
-```shell
-npx expo start
-```
+- Node.js (for React Native development) 📦
+- Java (for Spring Boot development) ☕
+- H2 Database installed and configured 🛠️
